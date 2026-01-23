@@ -49,3 +49,7 @@ These steps are for a Windows laptop. They use free tools only.
    - `dotnet publish src/AmqCompanySecretarialManager/AmqCompanySecretarialManager.csproj -c Release -r win-x64 --self-contained true`
 2. The EXE will be in:
    - `src\AmqCompanySecretarialManager\bin\Release\net8.0-windows\win-x64\publish`
+
+### Optional: run the setup script
+From PowerShell in the repo root:
+`.\scripts\setup.ps1`
