@@ -1,0 +1,116 @@
+<Window x:Class="AmqCompanySecretarialManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AmqCompanySecretarialManager"
+        mc:Ignorable="d"
+        Title="AMQ Company Secretarial Manager" Height="720" Width="1200">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Text="AMQ Company Secretarial Manager" FontSize="22" FontWeight="Bold" />
+        <TabControl Grid.Row="1" Margin="0,12,0,0">
+            <TabItem Header="Dashboard">
+                <StackPanel Margin="12" Orientation="Vertical" Spacing="8">
+                    <TextBlock FontWeight="Bold" Text="Upcoming & Overdue Deadlines" />
+                    <ListBox ItemsSource="{Binding Dashboard.UpcomingDeadlines}" Height="120" />
+                    <TextBlock FontWeight="Bold" Text="Recent Register Changes" />
+                    <ListBox ItemsSource="{Binding Dashboard.RecentRegisterChanges}" Height="120" />
+                    <TextBlock FontWeight="Bold" Text="Filings In Progress" />
+                    <ListBox ItemsSource="{Binding Dashboard.FilingsInProgress}" Height="120" />
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Company Profile">
+                <TabControl Margin="12">
+                    <TabItem Header="Overview">
+                        <StackPanel Margin="12" Spacing="6">
+                            <TextBlock Text="Company Overview" FontWeight="Bold" />
+                            <ItemsControl ItemsSource="{Binding SelectedCompanyOverview}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <DockPanel>
+                                            <TextBlock Text="{Binding Label}" Width="160" FontWeight="SemiBold" />
+                                            <TextBlock Text="{Binding Value}" />
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Registers">
+                        <StackPanel Margin="12" Spacing="8">
+                            <TextBlock Text="Register Views" FontWeight="Bold" />
+                            <ComboBox ItemsSource="{Binding RegisterTypes}" SelectedItem="{Binding SelectedRegisterType}" Width="280" />
+                            <DatePicker SelectedDate="{Binding AsAtDate}" />
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <Button Content="Current View" Width="120" />
+                                <Button Content="As-at Date" Width="120" />
+                                <Button Content="History" Width="120" />
+                                <Button Content="Export PDF" Width="120" />
+                                <Button Content="Export CSV" Width="120" />
+                            </StackPanel>
+                            <DataGrid ItemsSource="{Binding RegisterRows}" AutoGenerateColumns="True" Height="260" />
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Filings">
+                        <StackPanel Margin="12" Spacing="8">
+                            <Button Content="Create Filing" Width="140" />
+                            <DataGrid ItemsSource="{Binding FilingItems}" AutoGenerateColumns="True" Height="320" />
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Minutes & Resolutions">
+                        <StackPanel Margin="12" Spacing="8">
+                            <Button Content="Add Minute" Width="140" />
+                            <DataGrid ItemsSource="{Binding Minutes}" AutoGenerateColumns="True" Height="320" />
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Documents & Evidence">
+                        <StackPanel Margin="12" Spacing="8">
+                            <Button Content="Upload Document" Width="160" />
+                            <DataGrid ItemsSource="{Binding Documents}" AutoGenerateColumns="True" Height="320" />
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Tasks & Workflow">
+                        <StackPanel Margin="12" Spacing="8">
+                            <Button Content="New Task" Width="120" />
+                            <DataGrid ItemsSource="{Binding Tasks}" AutoGenerateColumns="True" Height="320" />
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Audit Trail">
+                        <StackPanel Margin="12" Spacing="8">
+                            <Button Content="Verify Audit Chain" Width="180" />
+                            <DataGrid ItemsSource="{Binding AuditEvents}" AutoGenerateColumns="True" Height="320" />
+                        </StackPanel>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem Header="Filing Manager">
+                <StackPanel Margin="12" Spacing="8">
+                    <Button Content="New Filing Pack" Width="160" />
+                    <DataGrid ItemsSource="{Binding FilingItems}" AutoGenerateColumns="True" Height="360" />
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Books & Records Pack">
+                <StackPanel Margin="12" Spacing="8">
+                    <TextBlock Text="Books & Records Pack Builder" FontWeight="Bold" />
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <ComboBox ItemsSource="{Binding Companies}" SelectedItem="{Binding SelectedCompany}" Width="280" />
+                        <DatePicker SelectedDate="{Binding PackStartDate}" />
+                        <DatePicker SelectedDate="{Binding PackEndDate}" />
+                    </StackPanel>
+                    <WrapPanel Margin="0,8,0,0">
+                        <CheckBox Content="Registers" IsChecked="{Binding IncludeRegisters}" Margin="0,0,12,0" />
+                        <CheckBox Content="Minutes/Resolutions" IsChecked="{Binding IncludeMinutes}" Margin="0,0,12,0" />
+                        <CheckBox Content="Filings + Evidence" IsChecked="{Binding IncludeFilings}" Margin="0,0,12,0" />
+                        <CheckBox Content="RBO Summary" IsChecked="{Binding IncludeRbo}" Margin="0,0,12,0" />
+                        <CheckBox Content="Audit Trail Summary" IsChecked="{Binding IncludeAudit}" />
+                    </WrapPanel>
+                    <Button Content="Generate Pack" Width="160" />
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
